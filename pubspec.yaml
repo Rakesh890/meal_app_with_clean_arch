@@ -1,0 +1,26 @@
+name: meal_app_with_clean_arch
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.17.6 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.5
+  http: ^0.13.5
+  dartz: ^0.10.1
+  equatable: ^2.0.5
+  get_it: ^7.2.0
+  http_interceptor: ^1.0.2
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+

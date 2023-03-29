@@ -1,0 +1,1 @@
+export 'package:meal_app_with_clean_arch/infrastructure/navigation/bindings/controllers/home.controller.binding.dart'; 
