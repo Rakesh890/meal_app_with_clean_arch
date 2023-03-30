@@ -9,7 +9,7 @@ import 'injectoers.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.initDepInject();
-  var initialRoute = await Routes.initialRoute;
+  var initialRoute = await Routes.LANDING;
   runApp(Main(initialRoute));
 }
 

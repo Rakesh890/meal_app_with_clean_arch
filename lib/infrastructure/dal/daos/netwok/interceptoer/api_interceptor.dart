@@ -8,12 +8,13 @@ class ApiInterceptor implements InterceptorContract {
     //  data.params['appid'] = OPEN_WEATHER_API_KEY;
     //   data.params['units'] = 'metric';
     data.headers['Content-Type'] = 'application/json';
-    print(data.toString());
+    print('REQUEST : ${data.method} : ${data.url}');
     return data;
   }
 
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
+    print('RESPONSE : ${data.statusCode}');
     return data;
   }
 }

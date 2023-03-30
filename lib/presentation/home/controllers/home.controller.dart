@@ -7,13 +7,16 @@ class HomeController extends GetxController with StateMixin {
   final CategoryMealUseCase categoryMealCase;
   RxList<MealsEntity> categoryList = <MealsEntity>[].obs;
   RxList<MealsEntity> ingriedentsList = <MealsEntity>[].obs;
-
+  RxList<MealsEntity> cityList = <MealsEntity>[].obs;
+  RxString selectedCityValue = ''.obs;
+  RxString slectedMealId = ''.obs;
   HomeController({required this.categoryMealCase});
 
   final count = 0.obs;
   @override
   void onInit() async {
     getCategoriesData();
+    getCity('inidan');
     super.onInit();
   }
 
@@ -33,7 +36,7 @@ class HomeController extends GetxController with StateMixin {
     try {
       change(null, status: RxStatus.loading());
       final response = await categoryMealCase
-          .featchCategoryMeal(ConfigEnvironments.categorieListUrl);
+          .featchData(ConfigEnvironments.categorieListUrl);
       response.fold((value) {
         categoryList.value = value.meals;
         final category = categoryList.first.strCategory;
@@ -48,9 +51,8 @@ class HomeController extends GetxController with StateMixin {
 
   Future<void> getIngidentsData(String cat) async {
     try {
-      change(null, status: RxStatus.loading());
       final response = await categoryMealCase
-          .featchCategoryMeal('${ConfigEnvironments.categrieWiseUrl}$cat');
+          .featchData('${ConfigEnvironments.categrieWiseUrl}$cat');
       response.fold((value) {
         ingriedentsList.value = value.meals;
         change(value, status: RxStatus.success());
@@ -62,7 +64,25 @@ class HomeController extends GetxController with StateMixin {
     }
   }
 
+  Future<void> getCity(String city) async {
+    try {
+      change(null, status: RxStatus.loading());
+      final response =
+          await categoryMealCase.featchData(ConfigEnvironments.areaWiseMealUrl);
+      response.fold((value) {
+        cityList.value = value.meals;
+        selectedCityValue.value = cityList.first.area!;
+        change(value, status: RxStatus.success());
+      }, (err) {
+        change(null, status: RxStatus.error(err.runtimeType.toString()));
+      });
+    } catch (err) {
+      change(err, status: RxStatus.error(err.runtimeType.toString()));
+    }
+  }
+
   selectCategories(MealsEntity catItems) {
+    slectedMealId.value = catItems.idMeal.toString();
     getIngidentsData(catItems.strCategory.toString());
   }
 }

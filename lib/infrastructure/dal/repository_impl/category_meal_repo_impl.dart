@@ -19,7 +19,6 @@ class CategoryMealRepostioryImpl extends CategoryMealRepository {
       String url) async {
     try {
       final result = await apiProvider.executeGet(url);
-      print("result ${result!.body}");
       switch (result!.statusCode) {
         case 200:
           return left(CategoryMealModel.fromJson(json.decode(result.body)));
@@ -27,6 +26,8 @@ class CategoryMealRepostioryImpl extends CategoryMealRepository {
           throw right(BadRequestException());
         case 401:
           throw right(UnauthorisedException());
+        case 500:
+          throw right(InternalServerError());
         default:
           throw right(GeneralException());
       }

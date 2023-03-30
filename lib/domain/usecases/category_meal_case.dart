@@ -10,7 +10,7 @@ class CategoryMealUseCase {
 
   CategoryMealUseCase({required this.categoryMealRepository});
 
-  Future<Either<CategoryMealEntity, AppException>> featchCategoryMeal(
+  Future<Either<CategoryMealEntity, AppException>> featchData(
       String url) async {
     try {
       final response = await categoryMealRepository.getCategoryMeal(url);

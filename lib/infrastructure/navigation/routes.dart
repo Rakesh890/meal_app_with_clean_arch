@@ -4,5 +4,8 @@ class Routes {
     return HOME;
   }
 
+  static const DETAILS = '/details';
   static const HOME = '/home';
+  static const LANDING = '/landing';
+  static const SEARCH = '/search';
 }

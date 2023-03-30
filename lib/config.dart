@@ -1,7 +1,8 @@
 class ConfigEnvironments {
   // List all Categories, Area, Ingredients
-  static const String BASEURL = "https://www.themealdb.com/api/json/v1/1/";
-  static const String categorieListUrl = BASEURL + "list.php?c=list";
-  static const String ingredientsUrl = BASEURL + "list.php?i=list";
-  static const String categrieWiseUrl = BASEURL+"filter.php?c=";
+  static const String baseUrl = 'https://www.themealdb.com/api/json/v1/1/';
+  static const String categorieListUrl = '${baseUrl}list.php?c=list';
+  static const String categrieWiseUrl = '${baseUrl}filter.php?c=';
+  static const String areaWiseMealUrl = '${baseUrl}list.php?a=list';
+  static const String mealDetailsUrl = '${baseUrl}lookup.php?i=';
 }

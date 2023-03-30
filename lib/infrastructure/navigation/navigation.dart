@@ -14,5 +14,20 @@ class Pages {
       page: () => const HomeScreen(),
       binding: HomeControllerBinding(),
     ),
+    GetPage(
+      name: Routes.DETAILS,
+      page: () => const DetailsScreen(),
+      binding: DetailsControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.LANDING,
+      page: () => const LandingScreen(),
+      binding: LandingControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.SEARCH,
+      page: () => const SearchScreen(),
+      binding: SearchControllerBinding(),
+    ),
   ];
 }

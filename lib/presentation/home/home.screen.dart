@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meal_app_with_clean_arch/domain/entities/category_mean_entity.dart';
+import 'package:meal_app_with_clean_arch/infrastructure/navigation/routes.dart';
 import 'controllers/home.controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -40,9 +42,13 @@ class HomeScreen extends GetView<HomeController> {
           final catItems = controller.categoryList[index];
           return InkResponse(
             onTap: () => controller.selectCategories(catItems),
-            child: Chip(
-              label: Text('${catItems.strCategory}'),
-              autofocus: true,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Chip(
+                backgroundColor: Colors.amber,
+                label: Text('${catItems.strCategory}'),
+                autofocus: true,
+              ),
             ),
           );
         });
@@ -52,20 +58,25 @@ class HomeScreen extends GetView<HomeController> {
     return GridView.builder(
         itemCount: controller.ingriedentsList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 0.85),
+            crossAxisCount: 2, childAspectRatio: 0.84),
         itemBuilder: (context, int index) {
           final catItems = controller.ingriedentsList[index];
           return InkResponse(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(Routes.DETAILS, arguments: {'id': catItems.idMeal});
+            },
             child: Card(
               child: Column(
                 children: [
-                  FadeInImage.assetNetwork(
-                    placeholder: AutofillHints.birthdayYear,
-                    image: '${catItems.strMealThumb}',
-                    imageErrorBuilder: (context, error, stackTrace) {
-                      return Icon(Icons.image);
+                  Image.network(
+                    '${catItems.strMealThumb}',
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.network(
+                        "https://developers.elementor.com/path/to/placeholder.png",
+                        fit: BoxFit.fitWidth,
+                      );
                     },
+                    height: 180,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -83,5 +94,27 @@ class HomeScreen extends GetView<HomeController> {
             ),
           );
         });
+  }
+
+  buidSelectAreaDropDown() {
+    return Obx(
+      () => DropdownButton(
+        // Initial Value
+        value: controller.selectedCityValue.value,
+        icon: const Icon(Icons.keyboard_arrow_down),
+        onChanged: (value) {
+          controller.selectedCityValue(value as String?);
+        },
+        iconEnabledColor: Colors.white,
+        isDense: true,
+        items: controller.cityList.map((items) {
+          return DropdownMenuItem(
+            value: items.area,
+            child: Text(items.area.toString(),
+                style: TextStyle(color: Colors.black, fontSize: 15.0)),
+          );
+        }).toList(),
+      ),
+    );
   }
 }
