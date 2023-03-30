@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:meal_app_with_clean_arch/domain/entities/category_mean_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meal_app_with_clean_arch/domain/reporitory/category_meal_repositroy.dart';
 import 'package:meal_app_with_clean_arch/infrastructure/dal/daos/netwok/api_provider.dart';
