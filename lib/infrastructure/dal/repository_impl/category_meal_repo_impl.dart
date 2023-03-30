@@ -31,10 +31,9 @@ class CategoryMealRepostioryImpl extends CategoryMealRepository {
         default:
           throw right(GeneralException());
       }
-    } on SocketException catch (err) {
+    } on SocketException catch (_) {
       throw FetchDataException();
     } catch (err) {
-      print("Error is ${err.runtimeType}");
       throw GeneralException();
     }
   }
