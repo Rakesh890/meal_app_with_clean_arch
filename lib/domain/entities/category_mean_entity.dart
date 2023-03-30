@@ -14,9 +14,12 @@ class CategoryMealEntity extends Equatable {
 
 class MealsEntity extends Equatable {
   final String? strCategory;
+  final String? strMeal;
+  final String? strMealThumb;
+  final String? idMeal;
 
-  MealsEntity({required this.strCategory});
+  MealsEntity({this.strCategory,this.strMeal,this.strMealThumb,this.idMeal});
 
   @override
-  List<Object?> get props => [strCategory];
+  List<Object?> get props => [strCategory,strMeal!,strMealThumb!,idMeal!];
 }

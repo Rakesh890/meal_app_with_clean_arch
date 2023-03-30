@@ -13,9 +13,23 @@ class CategoryMealModel extends CategoryMealEntity with EquatableMixin {
 }
 
 class MealsModel extends MealsEntity with EquatableMixin {
-  MealsModel({required String? strCategory}) : super(strCategory: strCategory!);
+
+  MealsModel({
+     final String? strCategory,
+      final String? strMeal,
+      final String? strMealThumb,
+     final String? idMeal, }) : super(
+    strCategory: strCategory,
+  strMealThumb: strMealThumb,
+  strMeal: strMeal,
+  idMeal: idMeal);
 
   factory MealsModel.fromJson(Map<String, dynamic> json) {
-    return MealsModel(strCategory: json['strCategory'] as String?);
+    //
+    return MealsModel(
+      strCategory: json['strCategory'] as String?,
+    strMeal : json['strMeal'] as String?,
+    strMealThumb : json['strMealThumb'] as String?,
+    idMeal : json['idMeal'] as String?,);
   }
 }

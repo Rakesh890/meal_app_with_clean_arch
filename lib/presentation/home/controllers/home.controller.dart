@@ -6,13 +6,14 @@ import '../../../config.dart';
 class HomeController extends GetxController with StateMixin {
   final CategoryMealUseCase categoryMealCase;
   RxList<MealsEntity> categoryList = <MealsEntity>[].obs;
+  RxList<MealsEntity> ingriedentsList = <MealsEntity>[].obs;
 
   HomeController({required this.categoryMealCase});
 
   final count = 0.obs;
   @override
-  void onInit() {
-    featcData();
+  void onInit() async {
+    getCategoriesData();
     super.onInit();
   }
 
@@ -28,23 +29,40 @@ class HomeController extends GetxController with StateMixin {
 
   void increment() => count.value++;
 
-  void featcData() async {
+  Future<void> getCategoriesData() async {
     try {
       change(null, status: RxStatus.loading());
       final response = await categoryMealCase
-          .featchCategoryMeal(ConfigEnvironments.CATEGORIES_LIST_URL);
+          .featchCategoryMeal(ConfigEnvironments.categorieListUrl);
       response.fold((value) {
         categoryList.value = value.meals;
-        for (var item in categoryList) {
-          print('name ${item.strCategory}');
-        }
-        change(value, status: RxStatus.success());
+        final category = categoryList.first.strCategory;
+        getIngidentsData(category!);
       }, (err) {
         change(err, status: RxStatus.error(err.runtimeType.toString()));
-        print('err :$err');
       });
     } catch (err) {
       change(err, status: RxStatus.error(err.runtimeType.toString()));
     }
+  }
+
+  Future<void> getIngidentsData(String cat) async {
+    try {
+      change(null, status: RxStatus.loading());
+      final response = await categoryMealCase
+          .featchCategoryMeal('${ConfigEnvironments.categrieWiseUrl}$cat');
+      response.fold((value) {
+        ingriedentsList.value = value.meals;
+        change(value, status: RxStatus.success());
+      }, (err) {
+        change(null, status: RxStatus.error(err.runtimeType.toString()));
+      });
+    } catch (err) {
+      change(err, status: RxStatus.error(err.runtimeType.toString()));
+    }
+  }
+
+  selectCategories(MealsEntity catItems) {
+    getIngidentsData(catItems.strCategory.toString());
   }
 }

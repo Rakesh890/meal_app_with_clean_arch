@@ -19,6 +19,7 @@ class CategoryMealRepostioryImpl extends CategoryMealRepository {
       String url) async {
     try {
       final result = await apiProvider.executeGet(url);
+      print("result ${result!.body}");
       switch (result!.statusCode) {
         case 200:
           return left(CategoryMealModel.fromJson(json.decode(result.body)));
@@ -32,6 +33,7 @@ class CategoryMealRepostioryImpl extends CategoryMealRepository {
     } on SocketException catch (err) {
       throw FetchDataException();
     } catch (err) {
+      print("Error is ${err.runtimeType}");
       throw GeneralException();
     }
   }
