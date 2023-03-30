@@ -37,9 +37,9 @@ class DetailsScreen extends GetView<DetailsController> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                        onPressed: () {}, child: Text("Watch video")),
+                        onPressed: () {}, child: Text('Watch video')),
                     ElevatedButton(
-                        onPressed: () {}, child: Text("See Ingridents"))
+                        onPressed: () {}, child: Text('See Ingridents'))
                   ],
                 )
               ],
