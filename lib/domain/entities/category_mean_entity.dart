@@ -20,17 +20,17 @@ class MealsEntity extends Equatable {
   final String? area;
   final String? strInstructions;
   final String? strYoutube;
-  String? strTags;
-  String? strIngredient2;
-  String? strIngredient1;
-  String? strIngredient3;
-  String? strIngredient5;
-  String? strIngredient4;
-  String? strIngredient6;
-  String? strIngredient8;
-  String? strIngredient7;
-  String? strIngredient10;
-  String? strIngredient9;
+  final String? strTags;
+  final String? strIngredient2;
+  final String? strIngredient1;
+  final String? strIngredient3;
+  final String? strIngredient5;
+  final String? strIngredient4;
+  final String? strIngredient6;
+  final String? strIngredient8;
+  final String? strIngredient7;
+  final String? strIngredient10;
+  final String? strIngredient9;
 
   MealsEntity(
       {this.strCategory,
