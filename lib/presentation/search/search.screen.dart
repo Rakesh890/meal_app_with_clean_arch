@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:meal_app_with_clean_arch/domain/entities/category_mean_entity.dart';
 import 'package:meal_app_with_clean_arch/infrastructure/navigation/routes.dart';
 
 import 'controllers/search.controller.dart';
@@ -39,48 +39,12 @@ class SearchScreen extends GetView<SearchController> {
             itemCount: controller.searchList.length,
             itemBuilder: (context, int index) {
               final searchItems = controller.searchList[index];
-              return InkResponse(
-                onTap: () => Get.toNamed(Routes.DETAILS,
-                    arguments: {'id': searchItems.idMeal}),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.network(
-                        searchItems.strMealThumb.toString(),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              searchItems.strMeal.toString(),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              searchItems.strInstructions.toString(),
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 16.0),
-                              maxLines: 5,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+              return InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.DETAILS,
+                      arguments: {'id': searchItems.idMeal});
+                },
+                child: buildSearhItems(searchItems),
               );
             },
             separatorBuilder: (context, index) => Divider(
@@ -88,7 +52,7 @@ class SearchScreen extends GetView<SearchController> {
             ),
           ),
         ),
-        onLoading: CircularProgressIndicator(),
+        onLoading: Center(child: CircularProgressIndicator()),
         onError: (error) {
           if (error == 'InvalidInputException') {
             return Text('Invalid request');
@@ -106,6 +70,79 @@ class SearchScreen extends GetView<SearchController> {
           }
         },
       ),
+    );
+  }
+
+  openSearchSheet(context) {
+    var height = 0.0.obs;
+    height.value = (MediaQuery.of(context).size.height * 0.55);
+    // adjust height
+    return Obx(
+      () => AnimatedContainer(
+        duration: Duration(milliseconds: 250),
+        curve: Curves.easeIn,
+        height: height.value,
+        child: Column(
+          children: [
+            IconButton(
+                onPressed: () {
+                  if (height.value < 700)
+                    height.value = (MediaQuery.of(context).size.height * 0.85);
+                  else if (height.value > 700)
+                    height.value = (MediaQuery.of(context).size.height * 0.55);
+                },
+                icon: Icon(Icons.horizontal_split_outlined)),
+            Flexible(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.searchList.length,
+                itemBuilder: (context, int index) =>
+                    buildSearhItems(controller.searchList[index]),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  buildSearhItems(MealsEntity searchItems) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 100,
+          height: 100,
+          child: Image.network(
+            searchItems.strMealThumb.toString(),
+          ),
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  searchItems.strMeal.toString(),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  searchItems.strInstructions.toString(),
+                  style: TextStyle(color: Colors.black, fontSize: 16.0),
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

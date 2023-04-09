@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:meal_app_with_clean_arch/config.dart';
 import 'package:meal_app_with_clean_arch/domain/entities/category_mean_entity.dart';
 import 'package:meal_app_with_clean_arch/domain/usecases/category_meal_case.dart';
-import 'package:meal_app_with_clean_arch/infrastructure/navigation/routes.dart';
 
 class SearchController extends GetxController with StateMixin {
   TextEditingController searchTextFiledController = TextEditingController();
@@ -46,7 +45,6 @@ class SearchController extends GetxController with StateMixin {
         searchList.value = values.meals;
         change(values, status: RxStatus.success());
       }, (error) {
-        print('return data $error');
         change(null, status: RxStatus.error('${error.runtimeType}'));
       });
     } catch (err) {
