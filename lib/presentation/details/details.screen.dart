@@ -19,19 +19,25 @@ class DetailsScreen extends GetView<DetailsController> {
             return ListView(
               children: [
                 Image.network(controller.mealsEntity.strMealThumb.toString()),
-                Text(
-                  '${controller.mealsEntity.strMeal ?? ''}',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '${controller.mealsEntity.strMeal ?? ''}',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0),
+                  ),
                 ),
-                Text(
-                  '${controller.mealsEntity.strInstructions}',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '${controller.mealsEntity.strInstructions}',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -59,7 +65,7 @@ class DetailsScreen extends GetView<DetailsController> {
             } else if (error == 'BadRequestException') {
               return Text('Please check your request');
             } else {
-              return Text('Something went wrong please try again');
+              return Text('Something went wrong please try again $error');
             }
           },
         ));

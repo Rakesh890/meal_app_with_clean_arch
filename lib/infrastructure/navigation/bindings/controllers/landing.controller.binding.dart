@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:meal_app_with_clean_arch/injectoers.dart';
 import 'package:meal_app_with_clean_arch/presentation/home/controllers/home.controller.dart';
+import 'package:meal_app_with_clean_arch/presentation/search/controllers/search.controller.dart';
 
 import '../../../../presentation/landing/controllers/landing.controller.dart';
 
@@ -13,5 +14,7 @@ class LandingControllerBinding extends Bindings {
     Get.lazyPut<HomeController>(
       () => serviceLocator<HomeController>(),
     );
+
+    Get.lazyPut<SearchController>(() => serviceLocator<SearchController>());
   }
 }

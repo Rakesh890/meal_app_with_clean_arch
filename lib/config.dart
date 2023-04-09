@@ -5,4 +5,5 @@ class ConfigEnvironments {
   static const String categrieWiseUrl = '${baseUrl}filter.php?c=';
   static const String areaWiseMealUrl = '${baseUrl}list.php?a=list';
   static const String mealDetailsUrl = '${baseUrl}lookup.php?i=';
+  static const String mealSearchUrl = '${baseUrl}search.php?s=';
 }

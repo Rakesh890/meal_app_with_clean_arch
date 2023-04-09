@@ -17,7 +17,8 @@ Future<void> initDepInject() async {
   serviceLocator.registerFactory(
       () => DetailsController(categoryMealUseCase: serviceLocator()));
 
-  serviceLocator.registerLazySingleton(() => SearchController());
+  serviceLocator.registerFactory(
+      () => SearchController(categoryMealCase: serviceLocator()));
 
   serviceLocator.registerLazySingleton(() => LandingController());
 
